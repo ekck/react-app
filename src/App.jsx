@@ -4,46 +4,21 @@ import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage'
 import JobsPage from './pages/JobsPage';
 import NotFoundPage from './pages/NotFoundPage';
-import JobPage, { jobLoader } from './pages/JobPage';
-import AddJobPage from './pages/AddJobPage';
-import EditJobPage from './pages/EditJobPage';
+
+
+
+import AboutPage from './pages/AboutPage';
+import ContactUs from './pages/ContactUs';
+import ProgramsPage from './pages/ProgramsPage';
+import NewslettersPage from './pages/NewslettersPage';
+import TestimonialsPage from './pages/TestimonialsPage';
+import NewsletterPage, { newsletterLoader } from './pages/NewsletterPage';
+import TestimonialPage, {testimonialLoader} from './pages/TestimonialPage';
 
 
 
 const App = () => {
-// Add new job 
-  const addJob = async ( newJob)  => {
-   const res = await fetch('/api/jobs', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
 
-    },
-    body: JSON.stringify(newJob),
-   }); 
-   return;
-  } 
-
-  // Delete Job
-  const deleteJob = async (id) => {
-    const res = await fetch(`/api/jobs/${id}`, {
-      method: 'DELETE',
-     }); 
-     return;
-  }
-  //update job
-  const updateJob = async (job) => {
-    const res = await fetch(`/api/jobs/${job.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-  
-      },
-      body: JSON.stringify(job),
-     }); 
-     return;
-
-  }
    
   
   const router = createBrowserRouter(
@@ -51,11 +26,15 @@ const App = () => {
       <Route path='/' element={<MainLayout/>}>
   
       <Route index element={<HomePage />} />
-      <Route path='/jobs' element={<JobsPage />} />
-     <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob}/>} />
-      <Route path='/jobs/:id' element={<JobPage deleteJob={deleteJob}/>} loader={jobLoader} />
-      <Route path='/edit-job/:id' element={<EditJobPage updateJobSubmit={updateJob}/>} loader={jobLoader} />
+    
       <Route path='*' element={<NotFoundPage />} />
+      <Route path='/about' element={<AboutPage />} />
+      <Route path='/contact' element={<ContactUs />} />
+      <Route path='/programs' element={<ProgramsPage />} />
+      <Route path='/testimonials' element={<TestimonialsPage />} />
+      <Route path='/newsletters' element={<NewslettersPage />} />
+      <Route path='/newsletter/:_id' element={<NewsletterPage />} loader={newsletterLoader}/>
+      <Route path='/testimonial/:_id' element={<TestimonialPage />} loader={testimonialLoader} />
   
       </Route>
    ));
